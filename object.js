@@ -1,3 +1,3 @@
 Object.extend = (...args) => {
-    return Object.assign({}, ...args);
+    return Object.freeze(Object.assign({}, ...args));
 }
