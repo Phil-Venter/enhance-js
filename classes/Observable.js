@@ -1,15 +1,15 @@
 /**
- * @class Observer
+ * @class Observable
  *
- * @description Very simple implementation of Observables,
+ * @description Very simple implementation of the Observable Pattern,
  *              Thanks Sheikh Irshad
  *              {@link https://www.initgrep.com/posts/javascript/design-patterns/publisher-Subscriber(pub-sub)}
  */
-export default class Observer {
+export default class Observable {
     /**
-     * @description Creates an instance of Observer.
+     * @description Creates an instance of Observable.
      *
-     * @memberof Observer
+     * @memberof Observable
      */
     constructor() {
         this.events = {};
@@ -23,7 +23,7 @@ export default class Observer {
      * @param {String} event
      * @param {Function} listener
      *
-     * @memberof Observer
+     * @memberof Observable
      */
     subscribe(event, listener) {
         if (!listener || typeof listener !== 'function')
@@ -41,7 +41,7 @@ export default class Observer {
      * @param {String} event
      * @param {*} params
      *
-     * @memberof Observer
+     * @memberof Observable
      */
     publish(event, params) {
         if (!this.events[event] || this.events[event].length < 1)
