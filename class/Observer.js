@@ -5,7 +5,7 @@
  *              Thanks Sheikh Irshad
  *              {@link https://www.initgrep.com/posts/javascript/design-patterns/publisher-Subscriber(pub-sub)}
  */
-class Observer {
+export default class Observer {
     /**
      * @description Creates an instance of Observer.
      *
@@ -43,7 +43,7 @@ class Observer {
      *
      * @memberof Observer
      */
-     publish(event, params) {
+    publish(event, params) {
         if (!this.events[event] || this.events[event].length < 1)
             throw new Error('Event does not exist');
         if (!params)
