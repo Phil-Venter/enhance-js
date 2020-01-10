@@ -39,15 +39,15 @@ class Observer {
      * @description pass data to events
      *
      * @param {String} event
-     * @param {Object} params
+     * @param {*} params
      *
      * @memberof Observer
      */
-    publish(event, params) {
+     publish(event, params) {
         if (!this.events[event] || this.events[event].length < 1)
             throw new Error('Event does not exist');
-        if (!params || typeof params !== 'object')
-            throw new Error('params was not an object');
+        if (!params)
+            throw new Error('params was not set');
         this.events[event].forEach((listener) => {
             listener(params);
         });
