@@ -5,7 +5,7 @@
  *
  * @param {objects} args
  *
- * @return object
+ * @return {object}
  *
  * @example Object.extend({id: 1, name: 'John'}, {id: 3, surname: 'Doe'})
  *      => {id: 3, name: 'John', surname: 'Doe'}
@@ -21,7 +21,7 @@ Object.extend = (...args) => {
  *
  * @param {objects} args
  *
- * @return object
+ * @return {object}
  *
  * @example {id: 1, name: 'John'}.extend({id: 3, surname: 'Doe'})
  *      => {id: 3, name: 'John', surname: 'Doe'}
