@@ -1,4 +1,31 @@
 /**
+ * @public Array.byObjectProp
+ *
+ * @description This is an auxiliary function that is used as the parameter in the Array.sort
+ *      function. Pass the key as a string to the Array.byObjectProp function to sort the
+ *      objects in the array by, switching from descending to ascending is as simple as prepending
+ *      a '-' to the passed parameter.
+ *
+ *      e.g. [{id:2},{id:4},{id:1},{id:-1}].sort(Array.byObjectProp('-id'))
+ *
+ * @param {string} prop
+ *
+ * @returns {object[]}
+ */
+Array.byObjectProp = (prop) => {
+    let order = 1;
+
+    if(prop[0] === "-") {
+        order = -1;
+        prop = prop.substr(1);
+    }
+
+    return (a, b) => (order === 1) ?
+        a[prop].localeCompare(b[prop]):
+        b[prop].localeCompare(a[prop]);
+}
+
+/**
  * @public Array.range
  *
  * @description Array.range(x) => returns array of numbers from 0 to x, stepping by 1
