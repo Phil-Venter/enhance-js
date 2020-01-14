@@ -54,3 +54,16 @@ Array.range = (start, end, step = 1) => {
 Array.prototype.concatAll = function() {
     return [].concat(...this);
 };
+
+/**
+ * @public Array.prototype.unique
+ *
+ * @description returns all the unique values of an array
+ *
+ * @return {any[]}
+ *
+ * @example [1,2,1,3,2].unique()
+ */
+Array.prototype.unique = function() {
+    return [...new Set(this)];
+}
