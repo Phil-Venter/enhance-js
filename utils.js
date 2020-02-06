@@ -1,560 +1,430 @@
 /**
- * Returns the javascript type of the value passed
+ * Returns the javascript type of the val passed
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {String} - type
  */
-function rawType(value) {
-  return ({}).toString.call(value).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-}
+var rawType = Object.freeze((val) => ({}).toString.call(val).match(/\s([a-zA-Z]+)/)[1].toLowerCase());
 
 /**
- * Returns if the javascript type of the value passed matches the type specified
+ * Returns if the javascript type of the val passed matches the type specified
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @param {String} type - the type in string format to evaluate against
  * @returns {Boolean}
  */
-function isType(value, type) {
-  return isString(type) && rawType(value) === type.toLowerCase();
-}
+var isType = Object.freeze((val, type) => rawType(type) === 'string' && rawType(val) === type.toLowerCase());
 
 /**
- * Returns if the javascript types in the array passed matches the type specified
+ * Returns if the javascript types in the arr passed matches the type specified
  *
- * @param {Array[Any]} array - array of values
+ * @param {Array[Any]} arr - arr of vals
  * @param {String} type - the type in string format to evaluate against
  * @returns {Boolean}
  */
-function isArrayOf(array, type) {
-  return isArray(array) && isString(type) ? array.every(value => isType(value, type)) : false;
-}
+var isArrayOf = Object.freeze((arr, type) => andBooleanArray([isArray(arr), isString(type)]) ? andBooleanArray(arr.map(val )=> isType(val, type)) : false);
 
 /**
- * Returns if the javascript type of the value passed is string
+ * Returns if the javascript type of the val passed is string
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isString(value) {
-  return isType(value, 'string');
-}
+var isString = Object.freeze((val) => isType(val, 'string'));
 
 /**
- * Returns if the javascript type of all the values in the array is string
+ * Returns if the javascript type of all the vals in the arr is string
  *
- * @param {Array[String]} array - any variable or value
+ * @param {Array[String]} arr - any variable or val
  * @returns {Boolean}
  */
-function isStringArray(array) {
-  return isArray(array) ? array.every(isString) : false;
-}
+var isStringArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isString)) : false);
 
 /**
- * Returns if the javascript type of the value passed is number
+ * Returns if the javascript type of the val passed is number
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isNumber(value) {
-  return isType(value, 'number') && Number.isFinite(value);
-}
+var isNumber = Object.freeze((val) => isType(val, 'number') && Number.isFinite(val));
 
 /**
- * Returns if the javascript type of all the values in the array is number
+ * Returns if the javascript type of all the vals in the arr is number
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isNumberArray(array) {
-  return isArray(array) ? array.every(isNumber) : false;
-}
+var isNumberArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isNumber)) : false);
 
 /**
- * Returns if the value is greater than 0
+ * Returns if the val is greater than 0
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isPositive(value) {
-  return isNumber(value) ? value > 0 : false;
-}
+var isPositive = Object.freeze((val) => isNumber(val) ? val > 0 : false);
 
 /**
- * Returns if all the values in a array is greater than 0
+ * Returns if all the vals in a arr is greater than 0
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isPositiveArray(array) {
-  return isArray(array) ? array.every(isPositive) : false;
-}
+var isPositiveArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isPositive)) : false);
 
 /**
- * Returns if the value is less than 0
+ * Returns if the val is less than 0
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isNegative(value) {
-  return isNumber(value) ? value < 0 : false;
-}
+var isNegative = Object.freeze((val) => isNumber(val) ? val < 0 : false);
 
 /**
- * Returns if all the values in a array is less than 0
+ * Returns if all the vals in a arr is less than 0
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isNegativeArray(array) {
-  return isArray(array) ? array.every(isNegative) : false;
-}
+var isNegativeArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isNegative)) : false);
 
 /**
- * Returns if the value is an integer
+ * Returns if the val is an integer
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isInt(value) {
-  return isNumber(value) && value === Number.parseInt(value);
-}
+var isInt = Object.freeze((val) => andBooleanArray([isNumber(val), val === Number.parseInt(val)]));
 
 /**
- * Returns if all the values in a array are integers
+ * Returns if all the vals in a arr are integers
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isIntArray(array) {
-  return isArray(array) ? array.every(isInt) : false;
-}
+var isIntArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isInt)) : false);
 
 /**
- * Returns if the value is greater than 0
+ * Returns if the val is greater than 0
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isPositiveInt(value) {
-  return isInt(value) ? isPositive(value) : false;
-}
+var isPositiveInt = Object.freeze((val) => isInt(val) ? isPositive(val) : false);
 
 /**
- * Returns if all the values in a array are greater than 0
+ * Returns if all the vals in a arr are greater than 0
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isPositiveIntArray(array) {
-  return isArray(array) ? array.every(isPositiveInt) : false;
-}
+var isPositiveIntArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isPositiveInt)) : false);
 
 /**
- * Returns if the value is less than 0
+ * Returns if the val is less than 0
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isNegativeInt(value) {
-  return isInt(value) ? isNegative(value) : false;
-}
+var isNegativeInt = Object.freeze((val) => isInt(val) ? isNegative(val) : false);
 
 /**
- * Returns if all the values in a array are less than 0
+ * Returns if all the vals in a arr are less than 0
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isNegativeIntArray(array) {
-  return !isArray(array) ? array.every(isNegativeInt) : false;
-}
+var isNegativeIntArray = Object.freeze((arr) => !isArray(arr) ? andBooleanArray(arr.map(isNegativeInt)) : false);
 
 /**
- * Returns if the value is a float
+ * Returns if the val is a float
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isFloat(value) {
-  return isNumber(value) && value === Number.parseFloat(value);
-}
+var isFloat = Object.freeze((val) => andBooleanArray([isNumber(val), val === Number.parseFloat(val)]));
 
 /**
- * Returns if all the values in a array are floats
+ * Returns if all the vals in a arr are floats
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isFloatArray(array) {
-  return isArray(array) ? array.every(isFloat) : false;
-}
+var isFloatArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isFloat)) : false);
 
 /**
- * Returns if the value is greater than 0
+ * Returns if the val is greater than 0
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isPositiveFloat(value) {
-  return isFloat(value) ? isPositive(value) : false;
-}
+var isPositiveFloat = Object.freeze((val) => isFloat(val) ? isPositive(val) : false);
 
 /**
- * Returns if all the values in a array are greater than 0
+ * Returns if all the vals in a arr are greater than 0
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isPositiveFloatArray(array) {
-  return isArray(array) ? array.every(isPositiveFloat) : false;
-}
+var isPositiveFloatArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isPositiveFloat)) : false);
 
 /**
- * Returns if the value is less than 0
+ * Returns if the val is less than 0
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isNegativeFloat(value) {
-  return isFloat(value) ? isNegative(value) : false;
-}
+var isNegativeFloat = Object.freeze((val) => isFloat(val) ? isNegative(val) : false);
 
 /**
- * Returns if all the values in a array are less than 0
+ * Returns if all the vals in a arr are less than 0
  *
- * @param {Array[Number]} array - any variable or value
+ * @param {Array[Number]} arr - any variable or val
  * @returns {Boolean}
  */
-function isNegativeFloatArray(array) {
-  return isArray(array) ? array.every(isNegativeFloat) : false;
-}
+var isNegativeFloatArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isNegativeFloat)) : false);
 
 /**
- * Returns if the value is not an array
+ * Returns if the val is not an arr
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isArray(value) {
-  return isType(value, 'array');
-}
+var isArray = Object.freeze((val) => isType(val, 'array'));
 
 /**
- * Returns if all the values in a array are arrays
+ * Returns if all the vals in a arr are arrs
  *
- * @param {Array[Array]} array - any variable or value
+ * @param {Array[Array]} arr - any variable or val
  * @returns {Boolean}
  */
-function isArrayArray(array) {
-  return isArray(array) ? array.every(isArray) : false;
-}
+var isArrayArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isArray)) : false);
 
 /**
- * Returns if the value is in array
+ * Returns if the val is in arr
  *
- * @param {Any} value - any variable or value
- * @param {Array} array - array to test against
+ * @param {Any} val - any variable or val
+ * @param {Array} arr - arr to test against
  * @returns {Boolean}
  */
-function inArray(value, array) {
-  return isArray(haystack) && haystack.indexOf(needle) !== -1;
-}
+var inArray = Object.freeze((val, arr) => isArray(arr) && arr.indexOf(val) !== -1);
 
 /**
- * Returns if the value is of type function
+ * Returns if the val is of type function
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isFunction(value) {
-  return isType(value, 'function');
-}
+var isFunction = Object.freeze((val) => isType(val, 'function'));
 
 /**
- * Returns if all the values in a array are of type function
+ * Returns if all the vals in a arr are of type function
  *
- * @param {Array[Function]} array - any variable or value
+ * @param {Array[Function]} arr - any variable or val
  * @returns {Boolean}
  */
-function isFunctionArray(array) {
-  return isArray(array) ? array.every(isFunction) : false;
-}
+var isFunctionArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isFunction)) : false);
 
 /**
- * Returns if the value is of type object
+ * Returns if the val is of type object
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isObject(value) {
-  return isType(value, 'object');
-}
+var isObject = Object.freeze((val) => isType(val, 'object'));
 
 /**
- * Returns if all the values in a array are of type object
+ * Returns if all the vals in a arr are of type object
  *
- * @param {Array[Object]} array - any variable or value
+ * @param {Array[Object]} arr - any variable or val
  * @returns {Boolean}
  */
-function isObjectArray(array) {
-  return isArray(array) ? array.every(isObject) : false;
-}
+var isObjectArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isObject)) : false);
 
 /**
- * Returns if the value is of type object
+ * Returns if the val is of type object
  *
- * @param {String} value - any variable or value
- * @param {Object} object - any variable or value
+ * @param {String} val - any variable or val
+ * @param {Object} object - any variable or val
  * @returns {Boolean}
  */
-function inObject(value, object) {
-  return isObject(object) && isString(value) && object.hasOwnProperty(value);
-}
+var inObject = Object.freeze((val, object) => andBooleanArray([isObject(object), isString(val), object.hasOwnProperty(val)]));
 
 /**
- * Returns if the value is empty
+ * Returns if the val is empty
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isEmpty(value) {
-  return !value;
-}
+var isEmpty = Object.freeze((val) => !val);
 
 /**
- * Returns if all the values in a array are empty or if array is empty
+ * Returns if all the vals in a arr are empty or if arr is empty
  *
- * @param {Array[Any]} array - any variable or value
+ * @param {Array[Any]} arr - any variable or val
  * @returns {Boolean}
  */
-function isEmptyArray(array) {
-  return isArray(array) ? isEmpty(array) ? true : array.every(isEmpty) : false;
-}
+var isEmptyArray = Object.freeze((arr) => isArray(arr) ? isEmpty(arr) ? true : andBooleanArray(arr.map(isEmpty)) : false);
 
 /**
- * Returns if the value is of type null
+ * Returns if the val is of type null
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isNull(value) {
-  return isType(value, 'null');
-}
+var isNull = Object.freeze((val) => isType(val, 'null'));
 
 /**
- * Returns if all the values in a array are of type null
+ * Returns if all the vals in a arr are of type null
  *
- * @param {Array[Any]} array - any variable or value
+ * @param {Array[Any]} arr - any variable or val
  * @returns {Boolean}
  */
-function isNullArray(array) {
-  return isArray(array) ? array.every(isNull) : false;
-}
+var isNullArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isNull)) : false);
 
 /**
- * Returns if the value is of type undefined
+ * Returns if the val is of type undefined
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isUndefined(value) {
-  return isType(value, 'undefined');
-}
+var isUndefined = Object.freeze((val) => isType(val, 'undefined'));
 
 /**
- * Returns if all the values in a array are of type undefined
+ * Returns if all the vals in a arr are of type undefined
  *
- * @param {Array[Any]} array - any variable or value
+ * @param {Array[Any]} arr - any variable or val
  * @returns {Boolean}
  */
-function isUndefinedArray(array) {
-  return isArray(array) ? array.every(isUndefined) : false;
-}
+var isUndefinedArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isUndefined)) : false);
 
 /**
- * Returns if the value is of type boolean
+ * Returns if the val is of type boolean
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isBoolean(value) {
-  return isType(value, 'boolean');
-}
+var isBoolean = Object.freeze((val) => isType(val, 'boolean'));
 
 /**
- * Returns if all the values in a array are of type boolean
+ * Returns if all the vals in a arr are of type boolean
  *
- * @param {Array[Boolean]} array - any variable or value
+ * @param {Array[Boolean]} arr - any variable or val
  * @returns {Boolean}
  */
-function isBooleanArray(array) {
-  return isArray(array) ? array.every(isBoolean) : false;
-}
+var isBooleanArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isBoolean)) : false);
+
 
 /**
- * Evaluates all values in array with &&
+ * Evaluates all vals in arr with &&
  *
- * @param {Array[Boolean]} array
+ * @param {Array[Boolean]} arr
  * @returns {Boolean}
  */
-function andBooleanArray(array) {
-  return isBooleanArray(array) ? array.every(_ => _) : false;
-}
+var andBooleanArray = Object.freeze((arr) => isBooleanArray(arr) ? arr.every(_ => _) : false);
 
 /**
- * Evaluates all values in array with ||
+ * Evaluates all vals in arr with ||
  *
- * @param {Array[Boolean]} array
+ * @param {Array[Boolean]} arr
  * @returns {Boolean}
  */
-function orBooleanArray(array) {
-  return isBooleanArray(array) ? array.some(_ => _) : false;
-}
+var orBooleanArray = Object.freeze((arr) => isBooleanArray(arr) ? arr.some(_ => _) : false);
 
 /**
- * Returns if the value is of type regular expression
+ * Returns if the val is of type regular expression
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isRegExp(value) {
-  return isType(value, 'regexp');
-}
+var isRegExp = Object.freeze((val) => isType(val, 'regexp'));
 
 /**
- * Returns if all the values in a array are of type regular expression
+ * Returns if all the vals in a arr are of type regular expression
  *
- * @param {Array[RegExp]} array - any variable or value
+ * @param {Array[RegExp]} arr - any variable or val
  * @returns {Boolean}
  */
-function isRegExpArray(array) {
-  return isArray(array) ? array.every(isRegExp) : false;
-}
+var isRegExpArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isRegExp)) : false);
 
 /**
- * Returns array of strings that match the regex pattern in the value
+ * Returns arr of strings that match the regex pattern in the val
  *
- * @param {String} value - any variable or value
+ * @param {String} val - any variable or val
  * @param {RegExp} regex - regular expression
  * @returns {Array[String]}
  */
-function matchRegex(value, regex) {
-  return isString(value) && isRegExp(regex) ? value.match(regex) : false;
-}
+var matchRegex = Object.freeze((val, regex) =>  andBooleanArray([isString(val), isRegExp(regex)]) ? val.match(regex) : false);
 
 /**
- * Returns if the value is of type error
+ * Returns if the val is of type error
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isError(value) {
-  return isType(value, 'error');
-}
+var isError = Object.freeze((val) => isType(val, 'error'));
 
 /**
- * Returns if all the values in a array are of type error
+ * Returns if all the vals in a arr are of type error
  *
- * @param {Array[Error]} array - any variable or value
+ * @param {Array[Error]} arr - any variable or val
  * @returns {Boolean}
  */
-function isErrorArray(array) {
-  return isArray(array) ? array.every(isError) : false;
-}
+var isErrorArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isError)) : false);
 
 /**
- * Returns if the value is of type date
+ * Returns if the val is of type date
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isDate(value) {
-  return isType(value, 'date');
-}
+var isDate = Object.freeze((val) => isType(val, 'date'));
 
 /**
- * Returns if all the values in a array are of type date
+ * Returns if all the vals in a arr are of type date
  *
- * @param {Array[Date]} array - any variable or value
+ * @param {Array[Date]} arr - any variable or val
  * @returns {Boolean}
  */
-function isDateArray(array) {
-  return isArray(array) ? array.every(isDate) : false;
-}
+var isDateArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isDate)) : false);
 
 /**
- * Returns if the value is of type symbol
+ * Returns if the val is of type symbol
  *
- * @param {Any} value - any variable or value
+ * @param {Any} val - any variable or val
  * @returns {Boolean}
  */
-function isSymbol(value) {
-  return isType(value, 'symbol');
-}
+var isSymbol = Object.freeze((val) => isType(val, 'symbol'));
 
 /**
- * Returns if all the values in a array are of type symbol
+ * Returns if all the vals in a arr are of type symbol
  *
- * @param {Array[Symbol]} array - any variable or value
+ * @param {Array[Symbol]} arr - any variable or val
  * @returns {Boolean}
  */
-function isSymbolArray(array) {
-  return isArray(array) ? array.every(isSymbol) : false;
-}
+var isSymbolArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.map(isSymbol)) : false);
 
 /**
- * Expose the functions
+ * Brains of compose an pipe
+ *
+ * @param {Function} fn - a function that will be ran in the future
+ * @param {Function} gn - a function that will be ran in the future
+ * @returns {Function}
  */
-export {
-  rawType,
-  isType,
-  isArrayOf,
-  isString,
-  isStringArray,
-  isNumber,
-  isNumberArray,
-  isPositive,
-  isPositiveArray,
-  isNegative,
-  isNegativeArray,
-  isInt,
-  isIntArray,
-  isPositiveInt,
-  isPositiveIntArray,
-  isNegativeInt,
-  isNegativeIntArray,
-  isFloat,
-  isFloatArray,
-  isPositiveFloat,
-  isPositiveFloatArray,
-  isNegativeFloat,
-  isNegativeFloatArray,
-  isArray,
-  isArrayArray,
-  inArray,
-  isFunction,
-  isFunctionArray,
-  isObject,
-  isObjectArray,
-  inObject,
-  isEmpty,
-  isEmptyArray,
-  isNull,
-  isNullArray,
-  isUndefined,
-  isUndefinedArray,
-  isBoolean,
-  isBooleanArray,
-  andBooleanArray,
-  orBooleanArray,
-  isRegExp,
-  isRegExpArray,
-  matchRegex,
-  isError,
-  isErrorArray,
-  isDate,
-  isDateArray,
-  isSymbol,
-  isSymbolArray
-};
+var _buildComposition = Object.freeze((fn, gn) => (...arguments) => gn(fn(...arguments)));
+
+/**
+ * Compose function builder
+ *
+ * @param {...Function} fn - a slew of functions that will be ran in the future from right to left
+ * @returns {Function}
+ */
+var compose = Object.freeze((...fn) => fn.reduceRight(_buildComposition));
+
+/**
+ * Pipe function builder
+ *
+ * @param {...Function} fn - a slew of functions that will be ran in the future from left to right
+ * @returns {Function}
+ */
+var pipe = Object.freeze((...fn) => fn.reduce(_buildComposition));
