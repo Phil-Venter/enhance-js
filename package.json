@@ -4,7 +4,7 @@
   "description": "A simple collection of functions that I often use or I have abstracted because I get them wrong",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,15 @@
   },
   "homepage": "https://github.com/Phil-Venter/enhance-js#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0"
-  }
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-destructuring": "^7.8.3",
+    "@babel/plugin-transform-spread": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "babel-plugin-check-es2015-constants": "^6.22.0",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+    "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
+    "babel-preset-minify": "^0.5.1"
+  },
+  "dependencies": {}
 }
