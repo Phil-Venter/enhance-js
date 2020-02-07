@@ -402,7 +402,7 @@ var isSymbolArray = Object.freeze((arr) => isArray(arr) ? andBooleanArray(arr.ma
  * @param {Function} gn - a function that will be ran in the future
  * @returns {Function}
  */
-var _buildComposition = Object.freeze((fn, gn) => (...args) => gn(fn(...args)));
+var _buildComposition = Object.freeze((fn1, fn2) => (...args) => fn2(fn1(...args)));
 
 /**
  * Compose function builder
@@ -426,17 +426,36 @@ var pipe = Object.freeze((...fn) => fn.reduce(_buildComposition));
  * @param {Function} fn - function to memoize
  * @returns {Function}
  */
-var memoize = Object.freeze((passedFunc) => {
+var memoize = Object.freeze((fn) => {
+  if(!isFunction(fn)) throw new Error('');
   let cache = {};
   return (arg) => {
       if (arg in cache) return cache[arg];
-      return cache[arg] = passedFunc(arg);
+      return cache[arg] = fn(arg);
   };
 });
+
+/**
+ * Flatten Array, deeply nested arrays will still persist
+ *
+ * @param {Array} arr - Array to flatten
+ * @returns {Array}
+ */
+var flatten = Object.freeze((arr) => isArray(arr) ? arr.flat() : arr);
+
+/**
+ * Deep Flatten Array to just a single array
+ *
+ * @param {Array} arr - Array to flatten
+ * @returns {Array}
+ */
+var deepFlatten = Object.freeze((arr) => isArray(arr) ? arr.flat(Infinity) : arr);
 
 module.exports = {
   andBooleanArray,
   compose,
+  deepFlatten,
+  flatten,
   inArray,
   isArray,
   isArrayArray,
