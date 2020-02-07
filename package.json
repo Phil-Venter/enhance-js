@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Phil-Venter/enhance-js/issues"
   },
-  "homepage": "https://github.com/Phil-Venter/enhance-js#readme"
+  "homepage": "https://github.com/Phil-Venter/enhance-js#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
 }
