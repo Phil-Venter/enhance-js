@@ -419,3 +419,17 @@ var compose = Object.freeze((...fn) => fn.reduceRight(_buildComposition));
  * @returns {Function}
  */
 var pipe = Object.freeze((...fn) => fn.reduce(_buildComposition));
+
+/**
+ * Memoize function wrapper
+ *
+ * @param {Function} fn - function to memoize
+ * @returns {Function}
+ */
+var memoize = Object.freeze((passedFunc) => {
+  let cache = {};
+  return (arg) => {
+      if (arg in cache) return cache[arg];
+      return cache[arg] = passedFunc(arg);
+  };
+});
