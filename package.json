@@ -1,0 +1,24 @@
+{
+  "name": "enhance-my-javascript-experience",
+  "version": "1.0.0",
+  "description": "A simple collection of functions that I often use or I have abstracted because I get them wrong",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phil-Venter/enhance-js.git"
+  },
+  "keywords": [
+    "abstactions",
+    "simple",
+    "functions"
+  ],
+  "author": "Philip Venter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Phil-Venter/enhance-js/issues"
+  },
+  "homepage": "https://github.com/Phil-Venter/enhance-js#readme"
+}
