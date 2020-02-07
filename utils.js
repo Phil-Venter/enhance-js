@@ -22,7 +22,7 @@ var isType = Object.freeze((val, type) => rawType(type) === 'string' && rawType(
  * @param {String} type - the type in string format to evaluate against
  * @returns {Boolean}
  */
-var isArrayOf = Object.freeze((arr, type) => andBooleanArray([isArray(arr), isString(type)]) ? andBooleanArray(arr.map(val )=> isType(val, type)) : false);
+var isArrayOf = Object.freeze((arr, type) => andBooleanArray([isArray(arr), isString(type)]) ? andBooleanArray(arr.map(val => isType(val, type))) : false);
 
 /**
  * Returns if the javascript type of the val passed is string
